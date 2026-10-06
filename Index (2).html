@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>FloBrain v2 – Team Directory</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f6fb;--sf:#fff;--sf2:#f1f2f9;--tx:#1a1d2e;--t2:#6b7190;--bd:#e4e6f0;--pr:#4f39e6;--prh:#4330c4;--prs:#eeebff;--ok:#16a870;--wn:#e08a12;--er:#dc3d4a;--sb:#141629;--sh:rgba(20,22,41,.12)}
+:root[data-t=dark]{--bg:#0e1020;--sf:#171a2e;--sf2:#1f2339;--tx:#eceefa;--t2:#9aa0c0;--bd:#2a2f4a;--pr:#7c6cff;--prh:#9488ff;--prs:#262350;--ok:#34d399;--wn:#f5a524;--er:#f26d78;--sb:#0a0b18;--sh:rgba(0,0,0,.5)}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;font:13px Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx);padding-top:env(safe-area-inset-top,0)}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:100%}
+.sb{background:var(--sb);color:#c9cce6;padding:20px 12px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.logo{color:#fff;font-weight:600;font-size:17px;padding:0 10px 22px}.logo i{color:#8f82ff;font-style:normal}
+.nav{display:flex;flex-direction:column;gap:2px}.nav a{padding:9px 10px;border-radius:7px;color:#c9cce6;font-size:12.5px;text-decoration:none}
+.nav a.on{background:#262a4a;color:#fff}.nav a:hover{background:#1e2240}
+.me{margin-top:auto;border-top:1px solid #262a4a;padding:12px 6px 0;font-size:12px;color:#fff}.me small{display:block;color:#8c91b8;margin:4px 0 8px}
+.seg{display:flex;background:#1e2240;border-radius:7px;padding:2px}.seg button{flex:1;border:0;background:none;color:#aab;padding:5px;border-radius:5px;font-size:11px}.seg button.on{background:#4f39e6;color:#fff}
+main{padding:22px 26px;min-width:0}
+.top{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.top h1{margin:0;font-size:18px;font-weight:600}.top p{margin:4px 0 0;color:var(--t2);font-size:12px}
+.grow{flex:1;min-width:200px}
+.in,.sel{background:var(--sf);border:1px solid var(--bd);border-radius:7px;padding:8px 11px;width:100%}.in::placeholder{color:var(--t2)}
+.srch{width:230px}
+.btn{background:var(--sf);border:1px solid var(--bd);border-radius:7px;padding:8px 14px;font-weight:500;transition:.15s}.btn:hover{background:var(--sf2)}
+.btn.p{background:var(--pr);border-color:var(--pr);color:#fff}.btn.p:hover{background:var(--prh)}.btn.d{background:var(--er);border-color:var(--er);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.sum{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0 6px}
+.sc{background:var(--sf);border:1px solid var(--bd);border-radius:9px;padding:10px 12px;text-align:left;transition:.15s}.sc:hover{border-color:var(--pr)}.sc.on{border-color:var(--pr);background:var(--prs)}
+.sc b{display:block;font-size:20px;font-weight:600;margin-top:2px}.sc span{color:var(--t2);font-size:11.5px}
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--bd);margin-top:14px}.tabs button{background:none;border:0;padding:10px 0;color:var(--t2);border-bottom:2px solid transparent;margin-bottom:-1px}.tabs button.on{color:var(--pr);border-color:var(--pr);font-weight:500}
+.flt{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;align-items:center}.flt .sel{width:auto;min-width:130px}.flt .sel.act{border-color:var(--pr);background:var(--prs)}
+.link{background:none;border:0;color:var(--pr);padding:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:16px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:14px;position:relative;cursor:pointer;transition:.15s;text-align:left;width:100%;display:block}
+.card:hover{border-color:var(--pr);box-shadow:0 2px 10px var(--sh)}.card.sel{border-color:var(--pr);box-shadow:0 0 0 2px var(--prs)}
+.av{width:38px;height:38px;border-radius:50%;background:var(--sf2);border:1px solid var(--bd);display:grid;place-items:center;font-weight:600;color:var(--t2);font-size:12px;flex:none}.av.l{width:64px;height:64px;font-size:18px}
+.dots{position:absolute;right:8px;top:8px;border:0;background:none;color:var(--t2);padding:4px 8px;border-radius:6px;font-size:16px}.dots:hover{background:var(--sf2)}
+.nm{font-weight:600;margin:10px 0 3px;font-size:13.5px}.rl{color:var(--t2);font-size:12px;display:flex;align-items:center;gap:6px}
+.st{display:inline-flex;gap:6px;align-items:center;font-size:12px;margin:10px 0 8px}.st:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.Available{--c:var(--ok)}.Busy{--c:var(--er)}.Away{--c:var(--wn)}.Offline{--c:var(--t2)}
+.pj{font-size:12.5px;margin-bottom:8px}.meta{display:flex;justify-content:space-between;color:var(--t2);font-size:11px;margin-top:8px}
+.bar{display:flex;align-items:center;gap:8px}.bar i{flex:1;height:5px;border-radius:4px;background:var(--sf2);overflow:hidden}.bar i b{display:block;height:100%;background:linear-gradient(90deg,var(--pr),#8f82ff)}
+.bar.Moderate i b{background:var(--pr)}.bar.High i b{background:var(--wn)}.bar.Overloaded i b{background:var(--er)}
+.tag{font-size:10.5px;padding:2px 7px;border-radius:10px;background:var(--sf2);color:var(--t2)}.tag.High,.tag.Overloaded{background:color-mix(in srgb,var(--er) 15%,transparent);color:var(--er)}.tag.Moderate{background:color-mix(in srgb,var(--wn) 18%,transparent);color:var(--wn)}.tag.pend{background:var(--prs);color:var(--pr)}
+.empty{text-align:center;padding:50px 16px;color:var(--t2);border:1px dashed var(--bd);border-radius:10px;grid-column:1/-1}.empty b{display:block;color:var(--tx);font-size:14px;margin-bottom:4px}
+.menu{position:absolute;right:8px;top:34px;background:var(--sf);border:1px solid var(--bd);border-radius:8px;box-shadow:0 6px 20px var(--sh);z-index:20;min-width:170px;padding:4px}
+.menu button{display:block;width:100%;text-align:left;border:0;background:none;padding:7px 10px;border-radius:5px}.menu button:hover{background:var(--sf2)}.menu .x{color:var(--er)}.menu hr{border:0;border-top:1px solid var(--bd);margin:4px 0}
+.ov{position:fixed;inset:0;background:rgba(10,11,24,.5);z-index:40;display:flex;justify-content:flex-end}.ov.c{justify-content:center;align-items:center;padding:16px}
+.dr{background:var(--sf);width:420px;max-width:100%;height:100%;overflow:auto;padding:20px;border-left:1px solid var(--bd)}
+.md{background:var(--sf);border:1px solid var(--bd);border-radius:12px;width:480px;max-width:100%;padding:22px;max-height:94vh;overflow:auto}
+.md h2,.dr h2{margin:0 0 4px;font-size:15px}.md p.s{color:var(--t2);margin:0 0 14px;font-size:12px}
+label{display:block;font-size:12px;font-weight:500;margin:12px 0 5px}.err{color:var(--er);font-size:11.5px;margin-top:4px}
+.steps{display:flex;gap:8px;margin:12px 0;font-size:12px;color:var(--t2)}.steps span{display:flex;gap:6px;align-items:center}.steps b{width:20px;height:20px;border-radius:50%;border:1px solid var(--bd);display:grid;place-items:center;font-size:11px}.steps .on{color:var(--tx)}.steps .on b{background:var(--pr);color:#fff;border-color:var(--pr)}
+.acc{display:grid;grid-template-columns:1fr 1fr;gap:10px}.acc button{text-align:left;border:1px solid var(--bd);background:var(--sf);border-radius:8px;padding:11px}.acc button.on{border-color:var(--pr);background:var(--prs)}.acc small{display:block;color:var(--t2);margin-top:4px}
+.ft{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dt{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;font-size:12px}.dt small{color:var(--t2);display:block;margin-bottom:2px}
+.dtabs{display:flex;gap:14px;border-bottom:1px solid var(--bd);overflow:auto;margin-top:6px}.dtabs button{background:none;border:0;padding:9px 0;color:var(--t2);white-space:nowrap;border-bottom:2px solid transparent}.dtabs .on{color:var(--pr);border-color:var(--pr)}
+.row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd);align-items:center}.row small{color:var(--t2);display:block;margin-top:2px}
+h3{font-size:12.5px;margin:16px 0 4px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:8px;z-index:90;font-weight:500}
+.lock{padding:60px 20px;text-align:center;color:var(--t2)}.lock b{display:block;color:var(--tx);font-size:16px;margin-bottom:6px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sb{position:static;height:auto;flex-direction:row;align-items:center;flex-wrap:wrap;padding:10px 14px}.logo{padding:0}.nav{display:none}.me{margin:0 0 0 auto;border:0;padding:0;display:flex;gap:10px;align-items:center}.me small{display:none}main{padding:16px}.sum{grid-template-columns:repeat(3,1fr)}.srch{width:100%}}
+@media(max-width:560px){.sum{grid-template-columns:repeat(2,1fr)}.flt .sel{flex:1;min-width:45%}.dr{width:100%}.acc{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+</style></head><body><div class="app" id="app"></div><div id="layer"></div>
+<script>
+const today=new Date(),D=n=>{const d=new Date(today);d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+const fmt=s=>new Date(s+'T00:00').toLocaleDateString('en',{month:'short',day:'numeric'});
+const projects=['FloBrain v2','Cosmos Intelligence','FloLabs','Website Redesign','API Platform'];
+const roles=['Designer','Developer','Product Manager','DevOps','Other'];
+const STAT=['Available','Busy','Away','Offline'];
+let members=[
+{id:1,name:'Chilo Nwosu',email:'chilo@flolabs.com',title:'Full Stack Developer',cat:'Developer',project:'FloBrain v2',status:'Available',wl:80,joined:'2025-01-12',loc:'Lagos, Nigeria',seen:'2m ago'},
+{id:2,name:'Adaeze Okafor',email:'adaeze@flolabs.com',title:'UI/UX Designer',cat:'Designer',project:'Cosmos Intelligence',status:'Busy',wl:70,joined:'2025-03-02',loc:'Abuja, Nigeria',seen:'In a meeting'},
+{id:3,name:'Emad Yusuf',email:'emad@flolabs.com',title:'DevOps Engineer',cat:'DevOps',project:'FloLabs',status:'Available',wl:60,joined:'2024-11-20',loc:'Kano, Nigeria',seen:'10m ago'},
+{id:4,name:'Claudia Eze',email:'claudia@flolabs.com',title:'Frontend Developer',cat:'Developer',project:'FloBrain v2',status:'Busy',wl:104,joined:'2025-02-10',loc:'Enugu, Nigeria',seen:'Just now'},
+{id:5,name:'Diogo Okon',email:'diogo@flolabs.com',title:'Backend Developer',cat:'Developer',project:'API Platform',status:'Available',wl:65,joined:'2025-04-18',loc:'Lagos, Nigeria',seen:'5m ago'},
+{id:6,name:'Rebecca James',email:'rebecca@flolabs.com',title:'Product Manager',cat:'Product Manager',project:'Cosmos Intelligence',status:'Away',leave:true,wl:50,joined:'2024-09-05',loc:'Accra, Ghana',seen:'On leave'},
+{id:7,name:'Serina Williams',email:'serina@flolabs.com',title:'UX Designer',cat:'Designer',project:'Website Redesign',status:'Available',wl:45,joined:'2025-06-01',loc:'Lagos, Nigeria',seen:'1h ago'},
+{id:8,name:'Tunde Bello',email:'tunde@flolabs.com',title:'QA Engineer',cat:'Other',project:'FloBrain v2',status:'Offline',wl:30,joined:'2025-07-14',loc:'Ibadan, Nigeria',seen:'Yesterday'}];
+let tasks=[
+[1,'Write API integration tests','FloBrain v2','High','In Progress',1],[1,'Fix auth token refresh','FloBrain v2','High','Todo',-1],[1,'Review pull requests','FloBrain v2','Medium','Todo',3],[1,'Set up CI/CD','FloLabs','Medium','Done',-2],[1,'Migrate user schema','FloBrain v2','Low','Done',-6],
+[2,'Redesign dashboard navigation','Cosmos Intelligence','High','In Progress',3],[2,'Design system audit','Cosmos Intelligence','Medium','Todo',7],[2,'Icon set cleanup','FloBrain v2','Low','Done',-3],
+[3,'Harden staging pipeline','FloLabs','High','In Progress',2],[3,'Rotate secrets','FloLabs','Medium','Done',-1],
+[4,'Build member cards','FloBrain v2','High','In Progress',1],[4,'Task board drag and drop','FloBrain v2','High','Todo',-2],[4,'Responsive nav','FloBrain v2','Medium','Todo',4],[4,'Fix modal focus trap','FloBrain v2','Low','Todo',5],[4,'Theme tokens','FloBrain v2','Medium','Done',-4],
+[5,'Rate limiting middleware','API Platform','High','In Progress',4],[5,'Webhook retries','API Platform','Medium','Todo',8],[5,'OpenAPI docs','API Platform','Low','Done',-5],
+[6,'Q4 roadmap draft','Cosmos Intelligence','Medium','Todo',10],[6,'Stakeholder review','Cosmos Intelligence','Low','Done',-8],
+[7,'Homepage wireframes','Website Redesign','Medium','In Progress',5],[7,'Usability test plan','Website Redesign','Low','Done',-3],
+[8,'Regression suite for v2','FloBrain v2','Medium','Todo',6]].map((t,i)=>({id:i+1,mid:t[5]?t[0]:0,name:t[1],project:t[2],priority:t[3],status:t[4],due:D(t[5]),mid:t[0]}));
+const hist={1:[['FloBrain v2','Lead Developer','2025-01-12','Active'],['FloLabs','Developer','2024-06-01','Completed']]};
+const logsFor=m=>[['Mon',m.project,6,'Feature development'],['Tue',m.project,7,'Code review & fixes'],['Wed',projects.find(p=>p!==m.project),3,'Planning sync'],['Thu',m.project,6,'Implementation'],['Fri',m.project,5,'Testing & handoff']].map(l=>({day:l[0],project:l[1],h:l[2],act:l[3]}));
+let activity=[{t:'Working on API integration tests',p:'FloBrain v2',w:'2h ago'},{t:'Commented on pull request',p:'FloBrain v2',w:'4h ago'},{t:'Completed task: Set up CI/CD',p:'FloLabs',w:'1d ago'}];
+const S={q:'',status:'All',role:'All',project:'All',tab:'all',sort:'Availability',sel:null,dtab:'Overview',menu:null,modal:null,lead:true,theme:'system',toast:'',busy:false};
+try{S.theme=localStorage.getItem('fb-theme')||'system'}catch(e){}
+const mq=matchMedia('(prefers-color-scheme:dark)');
+function applyTheme(){document.documentElement.dataset.t=S.theme==='system'?(mq.matches?'dark':'light'):S.theme}
+mq.onchange=applyTheme;applyTheme();
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ini=n=>n.split(' ').map(x=>x[0]).join('').slice(0,2);
+const lvl=w=>w>100?'Overloaded':w>80?'High':w>50?'Moderate':'Normal';
+const lvlTxt=w=>({Overloaded:'Overloaded',High:'High workload',Moderate:'Moderate',Normal:'Normal'})[lvl(w)];
+const active=m=>tasks.filter(t=>t.mid===m.id&&t.status!=='Done');
+const overdue=t=>t.status!=='Done'&&t.due<D(0);
+const bar=w=>`<div class="bar ${lvl(w)}" role="img" aria-label="Workload ${w}%, ${lvlTxt(w)}"><i><b style="width:${Math.min(w,100)}%"></b></i><span style="color:var(--t2)">${w}%</span></div>`;
+const stat=m=>m.pending?`<span class="tag pend">Invitation pending</span>`:`<span class="st ${m.status}">${m.leave?'On leave':m.status}</span>`;
+function filtered(){const q=S.q.trim().toLowerCase();const o={Available:0,Busy:1,Away:2,Offline:3};
+let r=members.filter(m=>(!q||[m.name,m.title,m.project,m.cat].join(' ').toLowerCase().includes(q))&&(S.status==='All'||m.status===S.status||(S.status==='Overloaded'&&m.wl>100))&&(S.role==='All'||m.cat===S.role)&&(S.project==='All'||m.project===S.project)&&(S.tab==='all'||(S.tab==='active'?!m.leave:m.leave)));
+if(S.status==='Overloaded')r=members.filter(m=>m.wl>100);
+return r.sort((a,b)=>S.sort==='Availability'?o[a.status]-o[b.status]:S.sort==='Workload'?b.wl-a.wl:a.name.localeCompare(b.name))}
+function render(){const A=document.getElementById('app');
+A.innerHTML=`<aside class="sb"><div class="logo">Flo<i>Brain</i> v2</div><nav class="nav">${['Home','My Tasks','Team Directory','Mission Control','Reports','Projects','Knowledge','Settings'].map(n=>`<a href="#" class="${n==='Team Directory'?'on':''}">${n}</a>`).join('')}</nav>
+<div class="me"><div>Sarah Johnson<small>${S.lead?'Team Lead':'Member'} view</small></div><div class="seg" role="group" aria-label="Current role"><button data-a="role" data-v="1" class="${S.lead?'on':''}">Lead</button><button data-a="role" data-v="0" class="${S.lead?'':'on'}">Member</button></div></div></aside>
+<main>${S.lead?`<div class="top"><div class="grow"><h1>Team Directory</h1><p>Manage your team, track progress and keep everyone aligned.</p></div>
+<input class="in srch" id="q" type="search" placeholder="Search name, role or project…" aria-label="Search team members" value="${esc(S.q)}">
+<div class="seg" style="background:var(--sf2);align-self:center" role="group" aria-label="Theme">${['light','dark','system'].map(t=>`<button data-a="theme" data-v="${t}" class="${S.theme===t?'on':''}" style="color:${S.theme===t?'#fff':'var(--t2)'}">${t[0].toUpperCase()+t.slice(1)}</button>`).join('')}</div>
+<button class="btn p" data-a="invite">+ Invite Member</button></div><div id="body"></div>`:`<div class="top"><div class="grow"><h1>Team Directory</h1></div></div><div class="lock"><b>Team Lead access only</b>Member oversight tools aren’t available for the Member role. Switch back to Lead in the sidebar to continue.</div>`}</main>`;
+if(S.lead){const q=document.getElementById('q');q.oninput=e=>{S.q=e.target.value;body()};body()}layer()}
+function body(){const all=members,L=filtered();const cnt=s=>all.filter(m=>m.status===s&&!m.pending).length;
+const cards=[['All','Total Members',all.length],['Available','Available',cnt('Available')],['Busy','Busy',cnt('Busy')],['Away','Away',cnt('Away')],['Overloaded','Overloaded',all.filter(m=>m.wl>100).length]];
+const act=S.status!=='All'||S.role!=='All'||S.project!=='All'||S.q||S.tab!=='all';
+const sel=(k,l,opts)=>`<select class="sel ${S[k]!=='All'?'act':''}" data-a="f" data-k="${k}" aria-label="${l}"><option value="All">${l}: All</option>${opts.map(o=>`<option ${S[k]===o?'selected':''}>${o}</option>`).join('')}</select>`;
+document.getElementById('body').innerHTML=`<div class="sum">${cards.map(c=>`<button class="sc ${S.status===c[0]?'on':''}" data-a="f" data-k="status" data-v="${c[0]}"><span>${c[1]}</span><b>${c[2]}</b></button>`).join('')}</div>
+<div class="tabs" role="tablist">${[['all',`All Members (${all.length})`],['active',`Active (${all.filter(m=>!m.leave).length})`],['leave',`On Leave (${all.filter(m=>m.leave).length})`]].map(t=>`<button role="tab" class="${S.tab===t[0]?'on':''}" data-a="tab" data-v="${t[0]}">${t[1]}</button>`).join('')}</div>
+<div class="flt">${sel('status','Status',[...STAT])}${sel('role','Role',roles)}${sel('project','Project',projects)}<select class="sel" data-a="f" data-k="sort" aria-label="Sort by">${['Availability','Workload','Name'].map(o=>`<option ${S.sort===o?'selected':''}>Sort by: ${o}</option>`).join('')}</select>${act?'<button class="link" data-a="clear">Clear filters</button>':''}<span style="color:var(--t2);margin-left:auto">${L.length} of ${all.length}</span></div>
+<div class="grid" role="list">${L.length?L.map(card).join(''):`<div class="empty"><b>${S.q?'No members match your search.':'No team members found'}</b>Try a different name, role or project, or clear your filters.<br><button class="btn" style="margin-top:12px" data-a="clear">Clear filters</button></div>`}</div>`}
+function card(m){const n=active(m).length;return`<div role="listitem" style="position:relative"><button class="card ${S.sel===m.id?'sel':''}" data-a="open" data-id="${m.id}"><div class="av">${ini(m.name)}</div><div class="nm">${esc(m.name)}</div><div class="rl">${esc(m.title)}</div>${stat(m)}<div class="pj">${esc(m.project)}</div>${bar(m.wl)}<div class="meta"><span>${n} active task${n===1?'':'s'}</span>${m.wl>80?`<span class="tag ${lvl(m.wl)}">${lvlTxt(m.wl)}</span>`:`<span>${esc(m.seen)}</span>`}</div></button>
+<button class="dots" data-a="menu" data-id="${m.id}" aria-label="Actions for ${esc(m.name)}" aria-haspopup="menu">⋯</button>${S.menu===m.id?menu(m):''}</div>`}
+function menu(m){const i=(l,a,v)=>`<button role="menuitem" data-a="${a}" data-id="${m.id}" ${v?`data-v="${v}"`:''}>${l}</button>`;
+return`<div class="menu" role="menu">${i('View profile','open')}${i('View tasks','open','Tasks')}${i('View logs','open','Time Logs')}${i('Project history','open','Project History')}${i('Assign task','assign')}<hr>${STAT.map(s=>i('Set '+s,'setst',s)).join('')}<hr>${i('Remove from team','remove').replace('<button','<button class="x"')}</div>`}
+function drawer(m){const T=tasks.filter(t=>t.mid===m.id),ac=T.filter(t=>t.status!=='Done'),dn=T.filter(t=>t.status==='Done'),od=ac.filter(overdue);
+const trow=t=>`<div class="row"><div><b>${esc(t.name)}</b><small>${esc(t.project)} · Due ${fmt(t.due)}${overdue(t)?' · <span style="color:var(--er)">Overdue</span>':''}</small></div><div style="text-align:right"><span class="tag ${t.priority==='High'?'High':''}">${t.priority}</span><small>${t.status}</small></div></div>`;
+const empty=t=>`<div class="empty" style="padding:24px">${t}</div>`;
+const tabs=['Overview','Tasks','Time Logs','Project History','Completed Tasks'];let c='';
+if(S.dtab==='Overview')c=`<div class="dt"><div><small>Role</small>${esc(m.title)}</div><div><small>Email</small>${esc(m.email)}</div><div><small>Current project</small>${esc(m.project)}</div><div><small>Joined</small>${fmt(m.joined)}, ${m.joined.slice(0,4)}</div><div style="grid-column:1/-1"><small>Workload · ${lvlTxt(m.wl)}</small>${bar(m.wl)}</div></div>
+<div class="row" style="border:0"><span>${ac.length} active · ${od.length} overdue · ${dn.length} completed</span></div><h3>Recent activity</h3>${activity.filter((a,i)=>i<5).map(a=>`<div class="row"><div>${esc(a.t)}<small>${esc(a.p)} · ${a.w}</small></div></div>`).join('')}`;
+if(S.dtab==='Tasks')c=`<div style="text-align:right;margin-bottom:6px"><button class="btn p" data-a="assign" data-id="${m.id}">Assign task</button></div>${ac.length?ac.map(trow).join(''):empty('No active tasks for this member.')}`;
+if(S.dtab==='Time Logs')c=m.pending?empty('No time logged yet.'):logsFor(m).map(l=>`<div class="row"><div><b>${l.day} — ${esc(l.project)}</b><small>${l.act}</small></div><b>${l.h}h</b></div>`).join('');
+if(S.dtab==='Project History'){const h=hist[m.id]||[[m.project,m.title,m.joined,'Active']];c=h.length?h.map(p=>`<div class="row"><div><b>${esc(p[0])}</b><small>${esc(p[1])} · Started ${fmt(p[2])}</small></div><span class="tag">${p[3]}</span></div>`).join(''):empty('No previous projects available.')}
+if(S.dtab==='Completed Tasks')c=dn.length?dn.map(t=>`<div class="row"><div><b>${esc(t.name)}</b><small>${esc(t.project)}</small></div><small>${fmt(t.due)}</small></div>`).join(''):empty('No completed tasks yet.');
+return`<div class="ov" data-a="close"><aside class="dr" role="dialog" aria-label="Member details" onclick="event.stopPropagation()"><div style="display:flex;justify-content:space-between"><h2>Member Details</h2><button class="btn" data-a="close" aria-label="Close">✕</button></div>
+<div style="display:flex;gap:14px;margin:16px 0;align-items:center"><div class="av l">${ini(m.name)}</div><div><b style="font-size:15px">${esc(m.name)}</b><div class="rl">${esc(m.title)}</div>${stat(m)}</div></div>
+<div class="seg" style="background:var(--sf2);flex-wrap:wrap" role="group" aria-label="Change status">${STAT.map(s=>`<button data-a="setst" data-id="${m.id}" data-v="${s}" style="color:${m.status===s?'#fff':'var(--t2)'}" class="${m.status===s?'on':''}">${s}</button>`).join('')}</div>
+<div class="dtabs" role="tablist">${tabs.map(t=>`<button role="tab" class="${S.dtab===t?'on':''}" data-a="dtab" data-v="${t}">${t}</button>`).join('')}</div><div style="padding-top:8px">${c}</div>
+<div class="ft" style="justify-content:space-between"><button class="btn" style="color:var(--er)" data-a="remove" data-id="${m.id}">Remove from team</button><button class="btn p" data-a="assign" data-id="${m.id}">Assign task</button></div></aside></div>`}
+const sv=(k,d)=>S.form&&S.form[k]!==undefined?S.form[k]:d;
+function modal(){const M=S.modal;if(!M)return'';const wrap=h=>`<div class="ov c" data-a="${S.busy?'':'close'}"><div class="md" role="dialog" aria-modal="true" onclick="event.stopPropagation()">${h}</div></div>`;
+const opts=(a,k)=>a.map(o=>`<option ${sv(k)===o?'selected':''}>${o}</option>`).join('');
+const E=k=>S.errs&&S.errs[k]?`<div class="err">${S.errs[k]}</div>`:'';
+if(M.t==='remove'){const m=members.find(x=>x.id===M.id);return wrap(`<h2>Remove ${esc(m.name.split(' ')[0])} from the team?</h2><p class="s">They will lose access to team projects and their open tasks will be unassigned.</p><div class="ft"><button class="btn" data-a="close">Cancel</button><button class="btn d" data-a="confirmrm" ${S.busy?'disabled':''}>${S.busy?'Removing…':'Remove Member'}</button></div>`)}
+if(M.t==='assign'){return wrap(`<h2>Assign task</h2><p class="s">The task is added to the member’s active tasks and workload.</p>
+<label for="f-m">Member</label><select class="sel" id="f-m" data-f="mid">${members.filter(m=>!m.pending).map(m=>`<option value="${m.id}" ${+sv('mid',M.id)===m.id?'selected':''}>${esc(m.name)}</option>`).join('')}</select>
+<label for="f-n">Task name</label><input class="in" id="f-n" data-f="name" value="${esc(sv('name',''))}" placeholder="e.g. Redesign dashboard navigation">${E('name')}
+<label>Project</label><select class="sel" data-f="project">${opts(projects,'project')}</select>
+<div class="acc"><div><label>Priority</label><select class="sel" data-f="priority">${opts(['High','Medium','Low'],'priority')}</select></div><div><label>Due date</label><input type="date" class="in" data-f="due" min="${D(0)}" value="${sv('due',D(3))}"></div></div>${E('due')}
+<div class="ft"><button class="btn" data-a="close">Cancel</button><button class="btn p" data-a="doassign" ${S.busy?'disabled':''}>${S.busy?'Assigning…':'Confirm assignment'}</button></div>`)}
+const st=S.step,F=S.form||{};
+const steps=`<div class="steps">${['Details','Access','Invite'].map((x,i)=>`<span class="${st>=i+1?'on':''}"><b>${i+1}</b>${x}</span>`).join('')}</div>`;
+if(st===1)return wrap(`<h2>Invite / Onboarding Flow</h2><p class="s">Add a new member to your team and give them access to FloBrain.</p>${steps}
+<label for="i-n">Full name *</label><input class="in" id="i-n" data-f="name" value="${esc(sv('name',''))}" placeholder="e.g. Jane Doe">${E('name')}
+<label for="i-e">Email address *</label><input class="in" id="i-e" data-f="email" type="email" value="${esc(sv('email',''))}" placeholder="e.g. jane@company.com">${E('email')}
+<label>Role *</label><select class="sel" data-f="role"><option value="">Select role</option>${opts(roles,'role')}</select>${E('role')}
+<label>Project (optional)</label><select class="sel" data-f="project"><option value="">Select project</option>${opts(projects,'project')}</select>
+<div class="ft"><button class="btn" data-a="close">Cancel</button><button class="btn p" data-a="next">Next →</button></div>`);
+if(st===2)return wrap(`<h2>Set access level</h2><p class="s">Choose what this person can do.</p>${steps}<div class="acc">${[['Team Member','Can view and manage tasks, update progress, view projects.'],['Team Lead','Can manage team, assign tasks, view reports and logs.']].map(a=>`<button data-a="acc" data-v="${a[0]}" class="${sv('access','Team Member')===a[0]?'on':''}"><b>${a[0]}</b><small>${a[1]}</small></button>`).join('')}</div>
+<div class="ft"><button class="btn" data-a="back">Back</button><button class="btn p" data-a="next">Next →</button></div>`);
+if(st===3)return wrap(`<h2>Review &amp; send</h2><p class="s">The invitation will be emailed to ${esc(F.email)}.</p>${steps}<div class="dt"><div><small>Name</small>${esc(F.name)}</div><div><small>Role</small>${F.role}</div><div><small>Project</small>${F.project||'Unassigned'}</div><div><small>Access</small>${F.access||'Team Member'}</div></div>
+<div class="ft"><button class="btn" data-a="back" ${S.busy?'disabled':''}>Back</button><button class="btn p" data-a="send" ${S.busy?'disabled':''}>${S.busy?'Sending…':'Send invitation'}</button></div>`)}
+function layer(){const m=members.find(x=>x.id===S.sel);document.getElementById('layer').innerHTML=(S.lead&&m?drawer(m):'')+(S.lead?modal():'')+(S.toast?`<div class="toast" role="status">${esc(S.toast)}</div>`:'')}
+const say=t=>{S.toast=t;layer();clearTimeout(say.h);say.h=setTimeout(()=>{S.toast='';layer()},2600)};
+const wait=f=>{S.busy=true;layer();setTimeout(()=>{S.busy=false;f()},700)};
+document.addEventListener('input',e=>{const f=e.target.dataset.f;if(f){S.form=S.form||{};S.form[f]=e.target.value}});
+document.addEventListener('change',e=>{const t=e.target,f=t.dataset.f;if(f){S.form=S.form||{};S.form[f]=t.value}if(t.dataset.a==='f'){S[t.dataset.k]=t.value.replace('Sort by: ','');body()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(S.modal&&!S.busy)S.modal=null;else if(S.menu)S.menu=null;else S.sel=null;S.menu=null;render()}});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.tagName==='SELECT')return;const a=b.dataset.a,v=b.dataset.v,id=+b.dataset.id,m=members.find(x=>x.id===id);
+if(S.menu&&a!=='menu'){S.menu=null}
+const R=()=>{body();layer()};
+switch(a){
+case'role':S.lead=v==='1';S.sel=null;S.modal=null;render();break;
+case'theme':S.theme=v;try{localStorage.setItem('fb-theme',v)}catch(x){}applyTheme();render();break;
+case'f':if(b.tagName==='BUTTON'){S[b.dataset.k]=S.status===v?'All':v;body()}break;
+case'tab':S.tab=v;body();break;
+case'clear':S.q='';S.status=S.role=S.project='All';S.tab='all';render();break;
+case'menu':e.stopPropagation();S.menu=S.menu===id?null:id;body();break;
+case'open':S.sel=id;S.dtab=v==='Tasks'||v==='Time Logs'||v==='Project History'?v:'Overview';R();break;
+case'dtab':S.dtab=v;layer();break;
+case'close':if(e.target===b||b.tagName==='BUTTON'){if(S.busy)break;if(b.closest('.dr')||b.classList.contains('ov')&&!S.modal)S.sel=null;S.modal=null;S.form=null;R()}break;
+case'setst':m.status=v;m.pending=false;if(v!=='Away')m.leave=false;R();say(`${m.name.split(' ')[0]} is now ${v}`);break;
+case'assign':S.modal={t:'assign',id};S.form={mid:id,project:m.project,priority:'Medium',due:D(3)};S.errs=null;S.menu=null;R();break;
+case'doassign':{const F=S.form,er={};if(!(F.name||'').trim())er.name='Enter a task name.';if(F.due<D(0))er.due='Due date can’t be in the past.';S.errs=er;if(Object.keys(er).length){layer();break}
+wait(()=>{const t=members.find(x=>x.id===+F.mid);tasks.push({id:tasks.length+1,mid:t.id,name:F.name.trim(),project:F.project,priority:F.priority,status:'Todo',due:F.due});t.wl+=10;activity.unshift({t:`Task assigned: ${F.name.trim()}`,p:F.project,w:'Just now'});S.modal=null;S.form=null;S.sel=t.id;S.dtab='Tasks';R();say(`Task assigned to ${t.name}`)});break}
+case'remove':S.modal={t:'remove',id};R();break;
+case'confirmrm':wait(()=>{const n=members.find(x=>x.id===S.modal.id).name;members=members.filter(x=>x.id!==S.modal.id);tasks.forEach(t=>{if(t.mid===S.modal.id)t.mid=0});S.modal=null;S.sel=null;R();say(`${n} was removed from the team`)});break;
+case'invite':S.modal={t:'invite'};S.step=1;S.form={access:'Team Member'};S.errs=null;layer();break;
+case'acc':S.form.access=v;layer();break;
+case'back':S.step--;layer();break;
+case'next':{const F=S.form,er={};if(S.step===1){if(!(F.name||'').trim())er.name='Full name is required.';if(!/^\S+@\S+\.\S+$/.test(F.email||''))er.email='Enter a valid email address.';if(!F.role)er.role='Select a role.'}
+S.errs=er;if(!Object.keys(er).length)S.step++;layer();break}
+case'send':wait(()=>{const F=S.form;members.push({id:Date.now(),name:F.name.trim(),email:F.email,title:F.role,cat:F.role,project:F.project||'Unassigned',status:'Offline',pending:true,wl:0,joined:D(0),loc:'—',seen:'Invited just now',access:F.access});S.modal=null;S.form=null;render();say('Invitation sent successfully')});break}});
+render();
+</script></body></html>
